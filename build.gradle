@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
@@ -8,51 +8,56 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
-apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
 
-war {
-    baseName = 'jtech'
-    version =  '1.0'
+jar {
+    baseName = 'heroku-pk-app'
+    version =  '0.0.1'
 }
 
-repositories {
-    mavenCentral()
-}
+ repositories {
+      jcenter()
+      flatDir {
+        dirs 'libs'
+      }
+   }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 configurations {
-	providedRuntime
+  providedRuntime
 }
 
 dependencies {
-	compile fileTree(include: ['*.jar'], dir: 'libs')
-	compile('org.springframework.boot:spring-boot-starter-amqp')
-	//compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	
-	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.7'
-   compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
+
+  compile('org.springframework.boot:spring-boot-starter-amqp')
     
-	//compile('org.apache.commons:commons-lang3:3.4')
-		//compile('org.apache.commons:commons-dbcp2:2.1.1')
-	
-	compile('org.projectlombok:lombok:1.16.6')
-	//compile('mysql:mysql-connector-java')
-	
-//	compile('org.hibernate:hibernate-entitymanager:5.1.0.Final')
-//	compile('org.hibernate:hibernate-java8:5.1.0.Final')
-//	compile('org.hibernate:hibernate-core:5.1.0.Final')
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	
-	
-	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    compile('org.projectlombok:lombok:1.16.6')
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.7'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
+  
+  providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     compile("org.springframework.boot:spring-boot-starter-web")
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+}
+task downloadDependencies(type: Exec) {
+    configurations.testRuntime.files
+    commandLine 'echo', 'Downloaded all dependencies'
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '2.9'
+  gradleVersion = '2.9'
 }
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+    into "$buildDir/lib"
+    from(configurations.compile)
+}
+
+stage.dependsOn(copyToLib)
