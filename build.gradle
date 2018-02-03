@@ -9,13 +9,12 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
 
 war {
-    baseName = 'gs-rest-service'
-    version =  '0.1.0'
+    baseName = 'jtech'
+    version =  '1.0'
 }
 
 repositories {
@@ -32,31 +31,22 @@ configurations {
 dependencies {
 	compile fileTree(include: ['*.jar'], dir: 'libs')
 	compile('org.springframework.boot:spring-boot-starter-amqp')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	//compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	
 	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.7'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
+   compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
     
-	compile('org.apache.commons:commons-lang3:3.4')
-		compile('org.apache.commons:commons-dbcp2:2.1.1')
+	//compile('org.apache.commons:commons-lang3:3.4')
+		//compile('org.apache.commons:commons-dbcp2:2.1.1')
 	
-
-
 	compile('org.projectlombok:lombok:1.16.6')
-	compile('mysql:mysql-connector-java')
-	compile('log4j:log4j:1.2.17')
+	//compile('mysql:mysql-connector-java')
 	
-	compile('org.hibernate:hibernate-entitymanager:5.1.0.Final')
-	compile('org.hibernate:hibernate-java8:5.1.0.Final')
-	compile('org.hibernate:hibernate-core:5.1.0.Final')
+//	compile('org.hibernate:hibernate-entitymanager:5.1.0.Final')
+//	compile('org.hibernate:hibernate-java8:5.1.0.Final')
+//	compile('org.hibernate:hibernate-core:5.1.0.Final')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	
-		compile group: 'org.hibernate', name: 'hibernate-envers', version: '5.1.0.Final'
-	
-	//FTP File Transfer
-	compile('commons-net:commons-net:3.0.1')
-	
-
 	
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
     compile("org.springframework.boot:spring-boot-starter-web")
