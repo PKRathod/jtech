@@ -31,16 +31,9 @@ configurations {
 }
 
 dependencies {
-
-  compile('org.springframework.boot:spring-boot-starter-amqp')
-    
-    compile('org.projectlombok:lombok:1.16.6')
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.7'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
-  
-  providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+   
+   compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
     compile("org.springframework.boot:spring-boot-starter-web")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
 
 }
 task downloadDependencies(type: Exec) {
