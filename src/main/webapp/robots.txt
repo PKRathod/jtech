@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://quantumnexus.herokuapp.com/sitemap.xml
