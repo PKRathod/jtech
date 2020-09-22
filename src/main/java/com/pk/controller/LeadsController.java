@@ -18,56 +18,61 @@ public class LeadsController {
 	
 	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
-    public List<LeadDetails> get(){
-		String status="";
+    public BaseDto get(){
+		System.out.println("getlocal called..");
+		BaseDto base = new BaseDto();
 		List<LeadDetails> res = new ArrayList<>();
 		try {
 			 res = repo.findAll();
+			 base.setResponse(res);
 		} catch (Exception e) {
            e.printStackTrace();		}
-		return res;
+		return base;
 	}
 	
 	@CrossOrigin(origins = "https://www.quantumnex.com")
 	@RequestMapping(value = "/live/get", method = RequestMethod.GET)
-    public List<LeadDetails> getLive(){
-		String status="";
+    public BaseDto getLive(){
+		System.out.println("getLive called..");
+		BaseDto base = new BaseDto();
 		List<LeadDetails> res = new ArrayList<>();
 		try {
 			 res = repo.findAll();
+			 base.setResponse(res);
 		} catch (Exception e) {
            e.printStackTrace();		}
-		return res;
+		return base;
 	}
 	
 	
 	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
-    public String post(@RequestBody LeadDetails lead){
+    public BaseDto savelocal(@RequestBody LeadDetails lead){
+		System.out.println("savelocal called..");
+		BaseDto base = new BaseDto();
 		String status="";
 		try{
-		LeadDetails res = repo.save(lead);
-		status = "SUCCESS";
+		repo.save(lead);
+		base.setResponse("SUCCESS");  
 		}catch(Exception e){
-			status = "FAILED";
 			e.printStackTrace();
 		}
-		return status;
+		return base;
 	}
 	
 	
 	@CrossOrigin(origins = "https://www.quantumnex.com")
 	@RequestMapping(value = "/live/post", method = RequestMethod.POST)
-    public String savelive(@RequestBody LeadDetails lead){
-		String status="";
+    public BaseDto savelive(@RequestBody LeadDetails lead){
+		System.out.println("savelive called..");
+		BaseDto base = new BaseDto();
 		try{
-		LeadDetails res = repo.save(lead);
-		status = "SUCCESS";
+		 repo.save(lead);
+		 base.setResponse("SUCCESS");
 		}catch(Exception e){
-			status = "FAILED";
 			e.printStackTrace();
 		}
-		return status;
+		return base;
 	}
 	
 }
