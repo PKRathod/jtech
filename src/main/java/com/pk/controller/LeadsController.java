@@ -50,21 +50,20 @@ public class LeadsController {
 	
 	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
-    public BaseDto savelocal(@RequestBody LeadDetails lead){
+	public BaseDto savelocal(@RequestBody LeadDetails lead){
 		System.out.println("savelocal called..");
 		BaseDto base = new BaseDto();
 		try{
-			SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		       Date date = new Date(System.currentTimeMillis());
-			lead.setRegistrationdDate(formatter.format(date));
-		repo.save(lead);
-		base.setResponse("SUCCESS");  
+			Date date = new Date(System.currentTimeMillis());
+			lead.setRegistrationdDate(date);
+			repo.save(lead);
+			base.setResponse("SUCCESS");  
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return base;
 	}
-	
+
 	
 	@CrossOrigin(origins = "https://www.quantumnex.com")
 	@RequestMapping(value = "/live/post", method = RequestMethod.POST)
@@ -72,9 +71,8 @@ public class LeadsController {
 		System.out.println("savelive called..");
 		BaseDto base = new BaseDto();
 		try{
-			SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		       Date date = new Date(System.currentTimeMillis());
-			lead.setRegistrationdDate(formatter.format(date));
+			Date date = new Date(System.currentTimeMillis());
+			lead.setRegistrationdDate(date);
 		 repo.save(lead);
 		 base.setResponse("SUCCESS");
 		}catch(Exception e){
