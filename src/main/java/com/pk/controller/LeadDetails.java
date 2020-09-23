@@ -31,7 +31,7 @@ public class LeadDetails {
 	@Column(length=1000)
 	private String description;
 	@Column(length=100)
-	private Date registrationdDate;
+	private String registrationdDate;
 	
 	public Long getId() {
 		return id;
@@ -83,10 +83,10 @@ public class LeadDetails {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getRegistrationdDate() {
+	public String getRegistrationdDate() {
 		return registrationdDate;
 	}
-	public void setRegistrationdDate(Date registrationdDate) {
+	public void setRegistrationdDate(String registrationdDate) {
 		this.registrationdDate = registrationdDate;
 	}
 
