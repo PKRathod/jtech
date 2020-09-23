@@ -1,5 +1,8 @@
 package com.pk.controller;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,15 +16,22 @@ public class LeadDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@Column(length=100)
 	private String firstName;
+	@Column(length=100)
 	private String lastName;
-	private String fullName;
+	@Column(length=100)
 	private String email;
+	@Column(length=20)
 	private String mobileNo;
-	private String password;
+	@Column(length=100)
 	private String subscribed;
+	@Column(length=50)
 	private String whereFrom;
+	@Column(length=1000)
 	private String description;
+	@Column(length=100)
+	private String registrationdDate;
 	
 	public Long getId() {
 		return id;
@@ -41,12 +51,7 @@ public class LeadDetails {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getFullName() {
-		return fullName;
-	}
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -59,12 +64,7 @@ public class LeadDetails {
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	
 	public String getSubscribed() {
 		return subscribed;
 	}
@@ -82,6 +82,12 @@ public class LeadDetails {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getRegistrationdDate() {
+		return registrationdDate;
+	}
+	public void setRegistrationdDate(String registrationdDate) {
+		this.registrationdDate = registrationdDate;
 	}
 
 	

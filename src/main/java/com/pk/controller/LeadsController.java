@@ -1,6 +1,9 @@
 package com.pk.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,7 @@ public class LeadsController {
 		BaseDto base = new BaseDto();
 		List<LeadDetails> res = new ArrayList<>();
 		try {
-			 res = repo.findAll();
+			 res = repo.getLatestDetail();
 			 base.setResponse(res);
 		} catch (Exception e) {
            e.printStackTrace();		}
@@ -37,7 +40,7 @@ public class LeadsController {
 		BaseDto base = new BaseDto();
 		List<LeadDetails> res = new ArrayList<>();
 		try {
-			 res = repo.findAll();
+			 res = repo.getLatestDetail();
 			 base.setResponse(res);
 		} catch (Exception e) {
            e.printStackTrace();		}
@@ -50,8 +53,10 @@ public class LeadsController {
     public BaseDto savelocal(@RequestBody LeadDetails lead){
 		System.out.println("savelocal called..");
 		BaseDto base = new BaseDto();
-		String status="";
 		try{
+			SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		       Date date = new Date(System.currentTimeMillis());
+			lead.setRegistrationdDate(formatter.format(date));
 		repo.save(lead);
 		base.setResponse("SUCCESS");  
 		}catch(Exception e){
@@ -67,6 +72,9 @@ public class LeadsController {
 		System.out.println("savelive called..");
 		BaseDto base = new BaseDto();
 		try{
+			SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		       Date date = new Date(System.currentTimeMillis());
+			lead.setRegistrationdDate(formatter.format(date));
 		 repo.save(lead);
 		 base.setResponse("SUCCESS");
 		}catch(Exception e){
