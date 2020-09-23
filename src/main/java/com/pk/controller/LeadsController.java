@@ -1,6 +1,5 @@
 package com.pk.controller;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,24 +18,17 @@ public class LeadsController {
 	@Autowired
 	LeadDetailsRepository repo;
 	
-	@CrossOrigin(origins = "http://localhost:8080")
-	@RequestMapping(value = "/get", method = RequestMethod.GET)
-    public BaseDto get(){
-		System.out.println("getlocal called..");
-		BaseDto base = new BaseDto();
-		List<LeadDetails> res = new ArrayList<>();
-		try {
-			 res = repo.getLatestDetail();
-			 base.setResponse(res);
-		} catch (Exception e) {
-           e.printStackTrace();		}
-		return base;
+	@CrossOrigin(origins = "https://www.quantumnex.com")
+	@RequestMapping(value = "/wakeup", method = RequestMethod.GET)
+    public String wakeup(){
+		System.out.println("::::::::::::::::::::::wakeup called:::::::::::::::::::::::::::::");
+		return "wakeup";
 	}
 	
 	@CrossOrigin(origins = "https://www.quantumnex.com")
 	@RequestMapping(value = "/live/get", method = RequestMethod.GET)
     public BaseDto getLive(){
-		System.out.println("getLive called..");
+		System.out.println(":::::::::::::::::::GetLive called::::::::::::::::::::::::::::::");
 		BaseDto base = new BaseDto();
 		List<LeadDetails> res = new ArrayList<>();
 		try {
