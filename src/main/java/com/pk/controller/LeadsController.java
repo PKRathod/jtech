@@ -61,7 +61,7 @@ public class LeadsController {
 		    Date fromGmt = new Date(gmtTime.getTime() + TimeZone.getDefault().getOffset(localTime.getTime()));
 		  
 		    
-			lead.setRegistrationdDate( gmtTime.toString());
+			lead.setRegistrationdDate(fromGmt.toString());
 		repo.save(lead);
 		base.setResponse("SUCCESS");  
 		}catch(Exception e){
