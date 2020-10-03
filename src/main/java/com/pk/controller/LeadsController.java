@@ -1,6 +1,8 @@
 package com.pk.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,21 +49,9 @@ public class LeadsController {
 		System.out.println("savelocal called..");
 		BaseDto base = new BaseDto();
 		try{
-			/*SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		       Date date = new Date(System.currentTimeMillis());
-		       lead.setRegistrationdDate(formatter.format(date));*/
-
-			long ts = System.currentTimeMillis();
-			Date localTime = new Date(ts);
-			String format = "yyyy/MM/dd HH:mm:ss";
-			SimpleDateFormat sdf = new SimpleDateFormat(format);   
-
-			Date gmtTime = new Date(sdf.format(localTime));
-			// Convert UTC to Local Time
-			Date fromGmt = new Date(gmtTime.getTime() + TimeZone.getDefault().getOffset(localTime.getTime()));
-
-
-			lead.setRegistrationdDate(fromGmt.toString());
+			SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date date = new Date(System.currentTimeMillis());
+			lead.setRegistrationdDate(formatter.format(date));
 			repo.save(lead);
 			base.setResponse("SUCCESS");  
 		}catch(Exception e){
@@ -77,20 +67,11 @@ public class LeadsController {
 		System.out.println("savelive called..");
 		BaseDto base = new BaseDto();
 		try{
-			/*SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		       Date date = new Date(System.currentTimeMillis());
-			lead.setRegistrationdDate(formatter.format(date));*/
 
-			long ts = System.currentTimeMillis();
-			Date localTime = new Date(ts);
-			String format = "yyyy/MM/dd HH:mm:ss";
-			SimpleDateFormat sdf = new SimpleDateFormat(format);   
+			ZoneId zoneId = ZoneId.of("Asia/Kolkata");
+			ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId);
 
-			Date gmtTime = new Date(sdf.format(localTime));
-			// Convert UTC to Local Time
-			Date fromGmt = new Date(gmtTime.getTime() + TimeZone.getDefault().getOffset(localTime.getTime()));
-
-			lead.setRegistrationdDate(localTime.toString());
+			lead.setRegistrationdDate(zonedDateTime.toString());
 
 			repo.save(lead);
 			base.setResponse("SUCCESS");
@@ -101,4 +82,3 @@ public class LeadsController {
 	}
 
 }
-
