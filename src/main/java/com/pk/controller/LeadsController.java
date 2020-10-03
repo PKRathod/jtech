@@ -90,7 +90,7 @@ public class LeadsController {
 			// Convert UTC to Local Time
 			Date fromGmt = new Date(gmtTime.getTime() + TimeZone.getDefault().getOffset(localTime.getTime()));
 
-			lead.setRegistrationdDate(fromGmt.toString());
+			lead.setRegistrationdDate(localTime.toString());
 
 			repo.save(lead);
 			base.setResponse("SUCCESS");
