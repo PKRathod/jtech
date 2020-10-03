@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -46,9 +47,21 @@ public class LeadsController {
 		System.out.println("savelocal called..");
 		BaseDto base = new BaseDto();
 		try{
-			SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			/*SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		       Date date = new Date(System.currentTimeMillis());
-		       lead.setRegistrationdDate(formatter.format(date));
+		       lead.setRegistrationdDate(formatter.format(date));*/
+			
+			long ts = System.currentTimeMillis();
+		    Date localTime = new Date(ts);
+		    String format = "yyyy/MM/dd HH:mm:ss";
+		    SimpleDateFormat sdf = new SimpleDateFormat(format);   
+	       
+		    Date gmtTime = new Date(sdf.format(localTime));
+		 // Convert UTC to Local Time
+		    Date fromGmt = new Date(gmtTime.getTime() + TimeZone.getDefault().getOffset(localTime.getTime()));
+		  
+		    
+			lead.setRegistrationdDate( gmtTime.toString());
 		repo.save(lead);
 		base.setResponse("SUCCESS");  
 		}catch(Exception e){
