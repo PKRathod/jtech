@@ -1,12 +1,13 @@
 package com.pk.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -68,10 +69,11 @@ public class LeadsController {
 		BaseDto base = new BaseDto();
 		try{
 
-			ZoneId zoneId = ZoneId.of("Asia/Kolkata");
-			ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId);
+			ZoneId zone = ZoneId.systemDefault();
+			ZoneId zoneId = ZoneId.of(zone.toString());
+			LocalDateTime zonedDateTime = LocalDateTime.now(zoneId);
 
-			lead.setRegistrationdDate(zonedDateTime.toString());
+			lead.setRegistrationdDate(zonedDateTime.toString()+" "+zone.getDisplayName(TextStyle.FULL, Locale.ROOT));
 
 			repo.save(lead);
 			base.setResponse("SUCCESS");
